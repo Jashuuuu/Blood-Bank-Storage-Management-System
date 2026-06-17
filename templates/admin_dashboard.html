@@ -1,0 +1,309 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          "surface-container-high": "#e8e8e8",
+          "secondary": "#4c616c",
+          "on-primary-fixed": "#410003",
+          "surface": "#f9f9f9",
+          "on-surface-variant": "#5b403d",
+          "surface-container": "#eeeeee",
+          "surface-container-low": "#f3f3f3",
+          "error-container": "#ffdad6",
+          "on-surface": "#1a1c1c",
+          "primary": "#af101a",
+          "error": "#ba1a1a",
+          "tertiary": "#005f7b",
+          "secondary-container": "#cfe6f2",
+          "on-secondary-container": "#526772",
+          "surface-tint": "#ba1a20",
+          "primary-container": "#d32f2f",
+          "surface-container-highest": "#e2e2e2",
+          "on-primary-container": "#fff2f0",
+          "on-primary": "#ffffff",
+          "on-primary-fixed-variant": "#930010",
+          "on-error-container": "#93000a",
+          "surface-container-lowest": "#ffffff",
+          "outline-variant": "#e4beba",
+          "primary-fixed": "#ffdad6",
+          "outline": "#8f6f6c"
+        },
+        fontFamily: { "headline": ["Manrope"], "body": ["Inter"], "label": ["Inter"] },
+        borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+      },
+    },
+  }
+</script>
+<style>
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+  body { font-family: 'Inter', sans-serif; }
+  h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+</style>
+
+<div class="bg-surface text-on-surface min-h-screen">
+  <div class="flex">
+
+    <!-- Sidebar -->
+    <aside class="fixed left-0 top-16 h-screen w-64 bg-zinc-50 flex flex-col p-4 gap-2 hidden lg:flex border-r border-zinc-100">
+      <div class="mb-6 px-4 py-2">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-xl bg-primary-fixed flex items-center justify-center">
+            <span class="material-symbols-outlined text-primary">shield_person</span>
+          </div>
+          <div>
+            <p class="text-sm font-bold text-on-surface">Admin Panel</p>
+            <p class="text-xs text-zinc-500">Blood Bank System</p>
+          </div>
+        </div>
+      </div>
+      <nav class="flex flex-col gap-1 font-body text-sm font-medium">
+        <a href="#overview" class="bg-white text-red-700 shadow-sm rounded-lg px-4 py-3 flex items-center gap-3 transition-all">
+          <span class="material-symbols-outlined">dashboard</span> Overview
+        </a>
+        <a href="#donors" class="text-zinc-500 px-4 py-3 flex items-center gap-3 hover:bg-zinc-200/50 transition-all">
+          <span class="material-symbols-outlined">favorite</span> Donors
+        </a>
+        <a href="#hospitals" class="text-zinc-500 px-4 py-3 flex items-center gap-3 hover:bg-zinc-200/50 transition-all">
+          <span class="material-symbols-outlined">local_hospital</span> Hospitals
+        </a>
+        <a href="#requests" class="text-zinc-500 px-4 py-3 flex items-center gap-3 hover:bg-zinc-200/50 transition-all">
+          <span class="material-symbols-outlined">list_alt</span> All Requests
+        </a>
+        <a href="{{ url_for('logout') }}" class="text-zinc-500 px-4 py-3 flex items-center gap-3 hover:bg-zinc-200/50 transition-all mt-4">
+          <span class="material-symbols-outlined">logout</span> Logout
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 lg:ml-64 p-8 bg-surface">
+      <div class="max-w-6xl mx-auto">
+
+        <!-- Page Header -->
+        <header class="mb-10" id="overview">
+          <h1 class="text-3xl font-extrabold tracking-tight text-on-surface mb-1">Admin Dashboard ⚙️</h1>
+          <p class="text-secondary text-sm">Full system overview — donors, hospitals, requests, and blood inventory.</p>
+        </header>
+
+        <!-- Stats Cards -->
+        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+          <div class="bg-surface-container-lowest p-6 rounded-xl relative overflow-hidden transition-transform hover:-translate-y-1">
+            <div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
+            <span class="material-symbols-outlined text-primary text-2xl mb-3 block">person</span>
+            <div class="text-3xl font-extrabold font-headline text-on-surface">{{ total_donors if total_donors else 0 }}</div>
+            <p class="text-xs text-secondary mt-1 uppercase tracking-wider font-bold">Total Donors</p>
+          </div>
+          <div class="bg-surface-container-lowest p-6 rounded-xl relative overflow-hidden transition-transform hover:-translate-y-1">
+            <div class="absolute left-0 top-0 bottom-0 w-1 bg-tertiary"></div>
+            <span class="material-symbols-outlined text-tertiary text-2xl mb-3 block">local_hospital</span>
+            <div class="text-3xl font-extrabold font-headline text-on-surface">{{ total_hospitals if total_hospitals else 0 }}</div>
+            <p class="text-xs text-secondary mt-1 uppercase tracking-wider font-bold">Hospitals</p>
+          </div>
+          <div class="bg-surface-container-lowest p-6 rounded-xl relative overflow-hidden transition-transform hover:-translate-y-1">
+            <div class="absolute left-0 top-0 bottom-0 w-1 bg-zinc-300"></div>
+            <span class="material-symbols-outlined text-zinc-400 text-2xl mb-3 block">list_alt</span>
+            <div class="text-3xl font-extrabold font-headline text-on-surface">{{ total_requests if total_requests else 0 }}</div>
+            <p class="text-xs text-secondary mt-1 uppercase tracking-wider font-bold">Blood Requests</p>
+          </div>
+          <div class="bg-surface-container-lowest p-6 rounded-xl relative overflow-hidden transition-transform hover:-translate-y-1">
+            <div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary-container"></div>
+            <span class="material-symbols-outlined text-on-secondary-container text-2xl mb-3 block">volunteer_activism</span>
+            <div class="text-3xl font-extrabold font-headline text-on-surface">{{ total_donations if total_donations else 0 }}</div>
+            <p class="text-xs text-secondary mt-1 uppercase tracking-wider font-bold">Donations Made</p>
+          </div>
+        </section>
+
+        <!-- Charts Row -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
+
+          <!-- Blood Type Requests Chart -->
+          <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm">
+            <h2 class="text-lg font-headline font-bold text-on-surface mb-4 flex items-center gap-2">
+              <span class="material-symbols-outlined text-primary">bloodtype</span>
+              Requests by Blood Type
+            </h2>
+            <canvas id="bloodTypeChart" height="200"></canvas>
+          </div>
+
+          <!-- Donation Status Chart -->
+          <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm">
+            <h2 class="text-lg font-headline font-bold text-on-surface mb-4 flex items-center gap-2">
+              <span class="material-symbols-outlined text-tertiary">donut_large</span>
+              Request Status Overview
+            </h2>
+            <canvas id="statusChart" height="200"></canvas>
+          </div>
+
+        </section>
+
+        <!-- Recent Donors Table -->
+        <section class="bg-surface-container-lowest rounded-xl p-6 mb-10 shadow-sm" id="donors">
+          <h2 class="text-lg font-headline font-bold text-on-surface mb-6 flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary">favorite</span>
+            Registered Donors
+          </h2>
+          {% if donors %}
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="text-left text-xs uppercase tracking-widest text-secondary border-b border-outline-variant">
+                    <th class="py-3 pr-4">Name</th>
+                    <th class="py-3 pr-4">Blood Type</th>
+                    <th class="py-3 pr-4">City</th>
+                    <th class="py-3">Available</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for donor in donors %}
+                  <tr class="border-b border-zinc-50 hover:bg-surface-container-low transition-colors">
+                    <td class="py-3 pr-4 font-medium">{{ donor.name }}</td>
+                    <td class="py-3 pr-4 font-extrabold text-primary font-headline">{{ donor.blood_type }}</td>
+                    <td class="py-3 pr-4 text-secondary">{{ donor.city_name }}</td>
+                    <td class="py-3">
+                      {% if donor.is_available %}
+                        <span class="text-[10px] font-bold bg-secondary-container text-on-secondary-container px-2 py-1 rounded-full">YES</span>
+                      {% else %}
+                        <span class="text-[10px] font-bold bg-zinc-100 text-zinc-500 px-2 py-1 rounded-full">NO</span>
+                      {% endif %}
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          {% else %}
+            <div class="text-center py-8 text-on-surface-variant">
+              <span class="material-symbols-outlined text-5xl text-zinc-300 block mb-3">person_off</span>
+              <p class="text-sm">No donors registered yet.</p>
+            </div>
+          {% endif %}
+        </section>
+
+        <!-- Recent Requests Table -->
+        <section class="bg-surface-container-lowest rounded-xl p-6 shadow-sm" id="requests">
+          <h2 class="text-lg font-headline font-bold text-on-surface mb-6 flex items-center gap-2">
+            <span class="material-symbols-outlined text-tertiary">list_alt</span>
+            All Blood Requests
+          </h2>
+          {% if all_requests %}
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="text-left text-xs uppercase tracking-widest text-secondary border-b border-outline-variant">
+                    <th class="py-3 pr-4">Hospital</th>
+                    <th class="py-3 pr-4">Blood Type</th>
+                    <th class="py-3 pr-4">Units</th>
+                    <th class="py-3 pr-4">Urgency</th>
+                    <th class="py-3 pr-4">Status</th>
+                    <th class="py-3">Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for req in all_requests %}
+                  <tr class="border-b border-zinc-50 hover:bg-surface-container-low transition-colors">
+                    <td class="py-3 pr-4 font-medium">{{ req.hospital_name }}</td>
+                    <td class="py-3 pr-4 font-extrabold text-primary font-headline">{{ req.blood_type }}</td>
+                    <td class="py-3 pr-4">{{ req.units_needed }}</td>
+                    <td class="py-3 pr-4">
+                      <span class="text-[10px] font-bold px-2 py-1 rounded-full uppercase
+                        {% if req.urgency == 'critical' %}bg-error-container text-on-error-container
+                        {% else %}bg-secondary-container text-on-secondary-container{% endif %}">
+                        {{ req.urgency }}
+                      </span>
+                    </td>
+                    <td class="py-3 pr-4">
+                      <span class="text-[10px] font-bold px-2 py-1 rounded-full uppercase
+                        {% if req.status == 'fulfilled' %}bg-secondary-container text-on-secondary-container
+                        {% else %}bg-zinc-100 text-zinc-500{% endif %}">
+                        {{ req.status }}
+                      </span>
+                    </td>
+                    <td class="py-3 text-secondary">{{ req.created_at }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          {% else %}
+            <div class="text-center py-8 text-on-surface-variant">
+              <span class="material-symbols-outlined text-5xl text-zinc-300 block mb-3">list_alt</span>
+              <p class="text-sm">No blood requests yet.</p>
+            </div>
+          {% endif %}
+        </section>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- Chart.js Scripts -->
+<script>
+  // Blood Type Requests Chart (Bar Chart)
+  const bloodTypeCtx = document.getElementById('bloodTypeChart').getContext('2d');
+  new Chart(bloodTypeCtx, {
+    type: 'bar',
+    data: {
+      labels: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
+      datasets: [{
+        label: 'Requests',
+        data: JSON.parse('{{ blood_type_counts | tojson | safe }}'),
+        backgroundColor: [
+          'rgba(175, 16, 26, 0.8)',
+          'rgba(175, 16, 26, 0.6)',
+          'rgba(0, 95, 123, 0.8)',
+          'rgba(0, 95, 123, 0.6)',
+          'rgba(175, 16, 26, 0.7)',
+          'rgba(175, 16, 26, 0.5)',
+          'rgba(0, 95, 123, 0.7)',
+          'rgba(0, 95, 123, 0.5)',
+        ],
+        borderRadius: 6,
+        borderSkipped: false,
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { beginAtZero: true, grid: { color: '#eeeeee' } },
+        x: { grid: { display: false } }
+      }
+    }
+  });
+
+  // Status Overview (Doughnut Chart)
+  const statusCtx = document.getElementById('statusChart').getContext('2d');
+  new Chart(statusCtx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Open', 'Fulfilled', 'Cancelled'],
+      datasets: [{
+        data: JSON.parse('{{ status_counts | tojson | safe }}'),
+        backgroundColor: ['#af101a', '#005f7b', '#e2e2e2'],
+        borderWidth: 0,
+        hoverOffset: 6
+      }]
+    },
+    options: {
+      responsive: true,
+      cutout: '65%',
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: { padding: 20, font: { family: 'Inter', size: 12 } }
+        }
+      }
+    }
+  });
+</script>
+
+{% endblock %}

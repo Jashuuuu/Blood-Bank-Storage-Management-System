@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- Tailwind + Fonts (Stitch Design System) -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          "surface-container-high": "#e8e8e8",
+          "surface-variant": "#e2e2e2",
+          "secondary": "#4c616c",
+          "on-primary-fixed": "#410003",
+          "surface": "#f9f9f9",
+          "on-surface-variant": "#5b403d",
+          "tertiary-container": "#00799c",
+          "surface-container": "#eeeeee",
+          "surface-container-low": "#f3f3f3",
+          "on-surface": "#1a1c1c",
+          "primary": "#af101a",
+          "tertiary": "#005f7b",
+          "secondary-container": "#cfe6f2",
+          "on-secondary-container": "#526772",
+          "surface-tint": "#ba1a20",
+          "primary-container": "#d32f2f",
+          "surface-container-highest": "#e2e2e2",
+          "on-primary-container": "#fff2f0",
+          "on-primary": "#ffffff",
+          "on-primary-fixed-variant": "#930010",
+          "surface-container-lowest": "#ffffff",
+          "outline-variant": "#e4beba",
+          "background": "#f9f9f9",
+          "on-tertiary": "#ffffff",
+          "primary-fixed": "#ffdad6",
+          "outline": "#8f6f6c"
+        },
+        fontFamily: { "headline": ["Manrope"], "body": ["Inter"], "label": ["Inter"] },
+        borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+      },
+    },
+  }
+</script>
+<style>
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+  .editorial-shadow { box-shadow: 0 12px 32px rgba(26,28,28,0.06); }
+  body { font-family: 'Inter', sans-serif; background-color: #f9f9f9; }
+</style>
+
+<div class="text-on-surface pb-20 px-4 md:px-8 max-w-7xl mx-auto min-h-screen">
+
+  <!-- Page Header -->
+  <header class="mb-12 max-w-3xl mt-8">
+    <span class="text-primary font-bold tracking-widest text-[10px] uppercase font-label block mb-2">Blood Bank & Donor Network</span>
+    <h1 class="text-5xl md:text-6xl font-headline font-bold text-on-surface tracking-tight leading-none mb-6">
+      Join as a <span class="text-primary">Lifesaver</span>
+    </h1>
+    <p class="text-lg text-on-secondary-container font-body leading-relaxed">
+      Register as a Donor or Hospital to join our network. Your contribution bridges the gap between emergency and recovery.
+    </p>
+  </header>
+
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+    <!-- Registration Form -->
+    <section class="lg:col-span-8 bg-surface-container-lowest rounded-xl editorial-shadow overflow-hidden">
+      <div class="p-1 w-full bg-gradient-to-r from-primary/20 via-primary/5 to-transparent"></div>
+      <div class="p-8 md:p-12">
+        <form method="POST" action="" class="space-y-8">
+
+          <!-- Personal Details -->
+          <div class="space-y-6">
+            <div class="flex items-center gap-3 mb-2">
+              <span class="material-symbols-outlined text-primary bg-primary-fixed p-2 rounded-lg">person</span>
+              <h2 class="text-xl font-headline font-semibold">Personal Details</h2>
+            </div>
+            <div class="flex flex-col gap-2">
+              <label class="text-xs font-bold text-on-surface-variant uppercase tracking-wider px-1">Full Name</label>
+              <input name="name" type="text" required placeholder="e.g. Ravi Kumar"
+                class="w-full px-4 py-3 rounded-lg border-none bg-surface-container-high focus:bg-surface-container-lowest focus:ring-2 focus:ring-surface-tint transition-all outline-none text-on-surface"/>
+            </div>
+            <div class="flex flex-col gap-2">
+              <label class="text-xs font-bold text-on-surface-variant uppercase tracking-wider px-1">Email Address</label>
+              <input name="email" type="email" required placeholder="ravi@example.com"
+                class="w-full px-4 py-3 rounded-lg border-none bg-surface-container-high focus:bg-surface-container-lowest focus:ring-2 focus:ring-surface-tint transition-all outline-none text-on-surface"/>
+            </div>
+            <div class="flex flex-col gap-2">
+              <label class="text-xs font-bold text-on-surface-variant uppercase tracking-wider px-1">Password</label>
+              <input name="password" type="password" required placeholder="Minimum 6 characters"
+                class="w-full px-4 py-3 rounded-lg border-none bg-surface-container-high focus:bg-surface-container-lowest focus:ring-2 focus:ring-surface-tint transition-all outline-none text-on-surface"/>
+            </div>
+          </div>
+
+          <!-- Role Selection -->
+          <div class="bg-surface-container-low p-6 rounded-xl space-y-4 border-l-4 border-primary">
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-primary">manage_accounts</span>
+              <h2 class="text-xl font-headline font-semibold">I am registering as...</h2>
+            </div>
+            <div class="flex gap-4">
+              <label class="flex-1 cursor-pointer">
+                <input type="radio" name="role" value="donor" class="hidden peer" checked/>
+                <div class="flex items-center justify-center gap-2 p-4 rounded-lg border-2 border-transparent bg-white peer-checked:border-primary peer-checked:bg-primary-fixed transition-all">
+                  <span class="material-symbols-outlined text-primary">favorite</span>
+                  <span class="font-medium text-on-primary-fixed-variant">Donor</span>
+                </div>
+              </label>
+              <label class="flex-1 cursor-pointer">
+                <input type="radio" name="role" value="hospital" class="hidden peer"/>
+                <div class="flex items-center justify-center gap-2 p-4 rounded-lg border-2 border-transparent bg-white peer-checked:border-tertiary peer-checked:bg-secondary-container transition-all">
+                  <span class="material-symbols-outlined text-tertiary">local_hospital</span>
+                  <span class="font-medium text-on-secondary-container">Hospital</span>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="pt-4 flex items-center justify-between border-t border-surface-container-high">
+            <div class="hidden md:flex items-center gap-2 text-on-surface-variant/60">
+              <span class="material-symbols-outlined text-sm">verified_user</span>
+              <span class="text-xs font-medium">Your data is safe and secure</span>
+            </div>
+            <button type="submit"
+              class="w-full md:w-auto bg-gradient-to-br from-primary to-primary-container text-on-primary px-10 py-4 rounded-full font-bold text-lg active:scale-95 duration-200 transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2">
+              Create Account
+              <span class="material-symbols-outlined">arrow_forward</span>
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </section>
+
+    <!-- Sidebar Info -->
+    <aside class="lg:col-span-4 space-y-6">
+      <!-- Why Join Card -->
+      <div class="bg-primary text-on-primary p-8 rounded-xl relative overflow-hidden group">
+        <div class="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-3xl transition-transform group-hover:scale-150 duration-700"></div>
+        <h3 class="text-2xl font-headline font-bold mb-4 relative z-10">Why Join?</h3>
+        <ul class="space-y-4 relative z-10">
+          <li class="flex items-start gap-3">
+            <span class="material-symbols-outlined text-primary-fixed mt-1">check_circle</span>
+            <span class="text-sm font-medium">One donation can save up to 3 lives.</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="material-symbols-outlined text-primary-fixed mt-1">check_circle</span>
+            <span class="text-sm font-medium">Get instant alerts when your blood type is needed.</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="material-symbols-outlined text-primary-fixed mt-1">check_circle</span>
+            <span class="text-sm font-medium">Free health checkup at every donation session.</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Already have an account? -->
+      <div class="bg-surface-container-lowest p-8 rounded-xl editorial-shadow text-center space-y-4">
+        <span class="material-symbols-outlined text-tertiary text-4xl">login</span>
+        <h3 class="text-lg font-headline font-semibold text-on-surface">Already have an account?</h3>
+        <p class="text-sm text-on-secondary-container">Sign in to access your dashboard and see notifications.</p>
+        <a href="{{ url_for('login') }}"
+          class="block w-full py-3 border-2 border-primary text-primary rounded-full font-bold hover:bg-primary-fixed transition-all">
+          Login Here
+        </a>
+      </div>
+    </aside>
+
+  </div>
+</div>
+{% endblock %}

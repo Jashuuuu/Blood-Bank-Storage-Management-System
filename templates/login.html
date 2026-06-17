@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- Tailwind + Fonts (Stitch Design System) -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          "surface-container-high": "#e8e8e8",
+          "secondary": "#4c616c",
+          "on-primary-fixed": "#410003",
+          "surface": "#f9f9f9",
+          "on-surface-variant": "#5b403d",
+          "surface-container": "#eeeeee",
+          "surface-container-low": "#f3f3f3",
+          "on-surface": "#1a1c1c",
+          "primary": "#af101a",
+          "tertiary": "#005f7b",
+          "secondary-container": "#cfe6f2",
+          "on-secondary-container": "#526772",
+          "surface-tint": "#ba1a20",
+          "primary-container": "#d32f2f",
+          "on-primary-container": "#fff2f0",
+          "on-primary": "#ffffff",
+          "on-primary-fixed-variant": "#930010",
+          "surface-container-lowest": "#ffffff",
+          "outline-variant": "#e4beba",
+          "primary-fixed": "#ffdad6",
+          "outline": "#8f6f6c"
+        },
+        fontFamily: { "headline": ["Manrope"], "body": ["Inter"] },
+        borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+      },
+    },
+  }
+</script>
+<style>
+  body { font-family: 'Inter', sans-serif; }
+  .font-headline { font-family: 'Manrope', sans-serif; }
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }
+  .bg-login-gradient {
+    background: radial-gradient(circle at top right, rgba(175,16,26,0.07) 0%, transparent 40%),
+                radial-gradient(circle at bottom left, rgba(0,95,123,0.04) 0%, transparent 40%);
+  }
+</style>
+
+<div class="bg-surface text-on-surface min-h-screen flex flex-col bg-login-gradient py-12 px-6">
+  <div class="flex-grow flex items-center justify-center">
+    <div class="w-full max-w-5xl flex flex-col md:flex-row bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm border border-outline-variant/10">
+
+      <!-- Branding Panel (Left) -->
+      <div class="hidden md:flex md:w-1/2 bg-primary-container relative p-12 flex-col justify-between overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-red-800/80 to-red-600/80 z-0"></div>
+        <div class="relative z-10">
+          <div class="text-3xl font-headline font-extrabold tracking-tighter text-white mb-2">🩸 Blood Bank</div>
+          <div class="h-1 w-12 bg-white/60 rounded-full mb-8"></div>
+          <h1 class="text-4xl font-headline font-bold text-white leading-tight">
+            Saving lives,<br/>one drop<br/>at a time.
+          </h1>
+          <p class="text-white/70 mt-6 text-sm leading-relaxed max-w-xs">
+            Connect donors with hospitals. Get notified when your blood type is needed. Be a hero in someone's story.
+          </p>
+        </div>
+        <div class="relative z-10">
+          <div class="flex items-center gap-4 p-4 rounded-lg bg-white/10 backdrop-blur-md">
+            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-white/20 text-white">
+              <span class="material-symbols-outlined">clinical_notes</span>
+            </div>
+            <div>
+              <p class="text-white text-sm font-semibold">Secure Portal</p>
+              <p class="text-white/60 text-xs">Donor & Hospital Management System</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Login Form Panel (Right) -->
+      <div class="w-full md:w-1/2 p-8 md:p-16 flex flex-col justify-center">
+        <div class="mb-10 text-center md:text-left">
+          <h2 class="text-2xl font-headline font-bold text-on-surface mb-2">Welcome Back</h2>
+          <p class="text-on-secondary-container text-sm">Enter your credentials to access your dashboard.</p>
+        </div>
+
+        <form method="POST" action="" class="space-y-6">
+
+          <!-- Email Field -->
+          <div class="space-y-1.5">
+            <label class="block text-xs font-semibold text-on-surface-variant tracking-wider uppercase" for="email">
+              Email Address
+            </label>
+            <div class="relative group">
+              <span class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline group-focus-within:text-primary transition-colors">alternate_email</span>
+              <input name="email" id="email" type="email" required placeholder="you@example.com"
+                class="w-full pl-12 pr-4 py-3.5 bg-surface-container-high border-none rounded-lg focus:ring-2 focus:ring-surface-tint/20 focus:bg-surface-container-lowest transition-all placeholder:text-outline/60 text-sm"/>
+            </div>
+          </div>
+
+          <!-- Password Field -->
+          <div class="space-y-1.5">
+            <div class="flex justify-between items-center">
+              <label class="block text-xs font-semibold text-on-surface-variant tracking-wider uppercase" for="password">
+                Password
+              </label>
+            </div>
+            <div class="relative group">
+              <span class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline group-focus-within:text-primary transition-colors">lock</span>
+              <input name="password" id="password" type="password" required placeholder="••••••••••••"
+                class="w-full pl-12 pr-4 py-3.5 bg-surface-container-high border-none rounded-lg focus:ring-2 focus:ring-surface-tint/20 focus:bg-surface-container-lowest transition-all placeholder:text-outline/60 text-sm"/>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit"
+            class="w-full py-4 bg-gradient-to-br from-primary to-primary-container text-on-primary font-headline font-bold rounded-full shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+            Login to Dashboard
+            <span class="material-symbols-outlined">arrow_forward</span>
+          </button>
+
+        </form>
+
+        <!-- Register Link -->
+        <div class="mt-12 pt-8 border-t border-outline-variant/30 text-center">
+          <p class="text-xs text-on-surface-variant">
+            Don't have an account?
+            <a href="{{ url_for('register') }}" class="text-primary font-bold hover:underline ml-1">Register Here</a>
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

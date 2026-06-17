@@ -1,0 +1,227 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- Tailwind + Fonts (Stitch Design System) -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "surface-container-high": "#e8e8e8",
+          "inverse-on-surface": "#f1f1f1",
+          "surface-variant": "#e2e2e2",
+          "secondary": "#4c616c",
+          "on-primary-fixed": "#410003",
+          "on-tertiary-container": "#e9f7ff",
+          "surface": "#f9f9f9",
+          "on-surface-variant": "#5b403d",
+          "tertiary-container": "#00799c",
+          "surface-container": "#eeeeee",
+          "surface-container-low": "#f3f3f3",
+          "error-container": "#ffdad6",
+          "on-surface": "#1a1c1c",
+          "primary": "#af101a",
+          "on-background": "#1a1c1c",
+          "error": "#ba1a1a",
+          "tertiary": "#005f7b",
+          "secondary-container": "#cfe6f2",
+          "surface-bright": "#f9f9f9",
+          "on-secondary-container": "#526772",
+          "surface-dim": "#dadada",
+          "surface-tint": "#ba1a20",
+          "primary-container": "#d32f2f",
+          "surface-container-highest": "#e2e2e2",
+          "inverse-primary": "#ffb3ac",
+          "inverse-surface": "#2f3131",
+          "tertiary-fixed": "#bee9ff",
+          "on-primary-container": "#fff2f0",
+          "on-primary": "#ffffff",
+          "on-primary-fixed-variant": "#930010",
+          "surface-container-lowest": "#ffffff",
+          "secondary-fixed": "#cfe6f2",
+          "outline-variant": "#e4beba",
+          "background": "#f9f9f9",
+          "on-secondary": "#ffffff",
+          "on-tertiary": "#ffffff",
+          "on-error-container": "#93000a",
+          "primary-fixed": "#ffdad6",
+          "primary-fixed-dim": "#ffb3ac",
+          "outline": "#8f6f6c"
+        },
+        fontFamily: {
+          "headline": ["Manrope"],
+          "body": ["Inter"],
+          "label": ["Inter"]
+        },
+        borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+      },
+    },
+  }
+</script>
+<style>
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+</style>
+
+<div class="bg-surface font-body text-on-surface">
+
+  <!-- Hero Section -->
+  <section class="relative min-h-[870px] flex items-center px-6 overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <div class="absolute inset-0 bg-gradient-to-r from-red-50 via-white to-transparent"></div>
+    </div>
+    <div class="relative z-10 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div class="space-y-8">
+        <div class="inline-flex items-center gap-2 px-4 py-2 bg-secondary-container text-on-secondary-container rounded-full text-xs font-bold tracking-widest uppercase">
+          <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+          Live Blood Supply Network
+        </div>
+        <h1 class="font-headline text-6xl md:text-7xl font-extrabold text-on-surface tracking-tighter leading-[1.1]">
+          Save Lives, <br/>
+          <span class="text-primary">Donate Blood</span>
+        </h1>
+        <p class="text-lg md:text-xl text-secondary max-w-lg leading-relaxed font-body">
+          Connect with real-time donor networks and secure vital blood supplies for those who need it most. Every donation saves up to 3 lives.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="{{ url_for('register') }}" class="px-8 py-4 bg-gradient-to-br from-primary to-primary-container text-on-primary rounded-full font-headline font-bold text-lg hover:shadow-lg hover:shadow-primary/20 transition-all active:scale-95">
+            Donate Now
+          </a>
+          <a href="{{ url_for('login') }}" class="px-8 py-4 bg-surface-container-lowest text-primary border border-outline-variant rounded-full font-headline font-bold text-lg hover:bg-surface-container-low transition-all active:scale-95">
+            Request Blood
+          </a>
+        </div>
+      </div>
+
+      <!-- Bento-style Stats Cards -->
+      <div class="hidden lg:grid grid-cols-2 gap-4">
+        <div class="bg-surface-container-lowest p-6 rounded-3xl shadow-sm border border-outline-variant/10 space-y-4 translate-y-8">
+          <div class="flex justify-between items-start">
+            <span class="text-4xl font-headline font-bold text-primary">O+</span>
+            <span class="material-symbols-outlined text-primary">bloodtype</span>
+          </div>
+          <div class="space-y-1">
+            <div class="text-xs uppercase tracking-widest text-secondary font-bold">Supply Level</div>
+            <div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden">
+              <div class="h-full bg-primary w-[75%] shadow-[0_0_8px_rgba(175,16,26,0.4)]"></div>
+            </div>
+          </div>
+          <p class="text-xs text-secondary font-medium">Critical reserve maintained.</p>
+        </div>
+        <div class="bg-surface-container-lowest p-6 rounded-3xl shadow-sm border border-outline-variant/10 space-y-4">
+          <div class="flex justify-between items-start">
+            <span class="text-4xl font-headline font-bold text-tertiary">AB-</span>
+            <span class="material-symbols-outlined text-tertiary">emergency</span>
+          </div>
+          <div class="space-y-1">
+            <div class="text-xs uppercase tracking-widest text-secondary font-bold">Urgency</div>
+            <div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden">
+              <div class="h-full bg-tertiary w-[30%]"></div>
+            </div>
+          </div>
+          <p class="text-xs text-secondary font-medium">High demand in city hospitals.</p>
+        </div>
+        <div class="col-span-2 bg-gradient-to-br from-tertiary to-tertiary-container p-8 rounded-3xl text-on-tertiary-container relative overflow-hidden">
+          <div class="relative z-10">
+            <h3 class="font-headline font-bold text-2xl mb-2">Live Statistics</h3>
+            <div class="grid grid-cols-2 gap-4 mt-6">
+              <div>
+                <div class="text-3xl font-bold font-headline">{{ total_donors if total_donors else '1,200+' }}</div>
+                <div class="text-xs font-medium opacity-80 uppercase tracking-widest">Registered Donors</div>
+              </div>
+              <div>
+                <div class="text-3xl font-bold font-headline">{{ total_hospitals if total_hospitals else '48' }}</div>
+                <div class="text-xs font-medium opacity-80 uppercase tracking-widest">Partner Hospitals</div>
+              </div>
+            </div>
+          </div>
+          <span class="material-symbols-outlined absolute -right-4 -bottom-4 text-9xl opacity-10 rotate-12">monitoring</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="bg-surface-container py-24">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-surface-container-lowest p-10 rounded-2xl text-center space-y-4 transition-transform hover:-translate-y-2 duration-300">
+          <div class="text-5xl font-headline font-bold text-primary">{{ total_donors if total_donors else '1,200+' }}</div>
+          <div class="text-xs uppercase font-bold tracking-[0.2em] text-secondary">Donors Registered</div>
+          <p class="text-sm text-on-surface-variant font-body px-4">A community built on the foundation of selfless giving.</p>
+        </div>
+        <div class="bg-surface-container-lowest p-10 rounded-2xl text-center space-y-4 transition-transform hover:-translate-y-2 duration-300">
+          <div class="text-5xl font-headline font-bold text-tertiary">{{ total_hospitals if total_hospitals else '48' }}</div>
+          <div class="text-xs uppercase font-bold tracking-[0.2em] text-secondary">Partner Hospitals</div>
+          <p class="text-sm text-on-surface-variant font-body px-4">Hospitals connected in our lifesaving network.</p>
+        </div>
+        <div class="bg-surface-container-lowest p-10 rounded-2xl text-center space-y-4 transition-transform hover:-translate-y-2 duration-300">
+          <div class="text-5xl font-headline font-bold text-primary">{{ total_donations if total_donations else '3,500+' }}</div>
+          <div class="text-xs uppercase font-bold tracking-[0.2em] text-secondary">Donations Made</div>
+          <p class="text-sm text-on-surface-variant font-body px-4">Every unit represents a story of recovery and hope.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="py-32 bg-surface">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="font-headline text-4xl font-bold text-on-surface mb-4">How It Works</h2>
+        <p class="text-secondary text-lg max-w-xl mx-auto">Three simple steps to save a life. Join thousands of donors making a difference every day.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Step 1 -->
+        <div class="text-center space-y-4 p-8 rounded-2xl hover:bg-surface-container-low transition-all">
+          <div class="w-16 h-16 rounded-full bg-primary-fixed flex items-center justify-center mx-auto">
+            <span class="material-symbols-outlined text-primary text-3xl">person_add</span>
+          </div>
+          <div class="text-xs font-bold text-primary uppercase tracking-widest">Step 01</div>
+          <h3 class="font-headline text-xl font-bold text-on-surface">Register as Donor</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed">Create your profile with your blood type and location. It only takes 2 minutes!</p>
+        </div>
+        <!-- Step 2 -->
+        <div class="text-center space-y-4 p-8 rounded-2xl hover:bg-surface-container-low transition-all">
+          <div class="w-16 h-16 rounded-full bg-secondary-container flex items-center justify-center mx-auto">
+            <span class="material-symbols-outlined text-tertiary text-3xl">notifications_active</span>
+          </div>
+          <div class="text-xs font-bold text-tertiary uppercase tracking-widest">Step 02</div>
+          <h3 class="font-headline text-xl font-bold text-on-surface">Get Notified</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed">Receive instant alerts when hospitals in your area need your blood type urgently.</p>
+        </div>
+        <!-- Step 3 -->
+        <div class="text-center space-y-4 p-8 rounded-2xl hover:bg-surface-container-low transition-all">
+          <div class="w-16 h-16 rounded-full bg-primary-fixed flex items-center justify-center mx-auto">
+            <span class="material-symbols-outlined text-primary text-3xl">favorite</span>
+          </div>
+          <div class="text-xs font-bold text-primary uppercase tracking-widest">Step 03</div>
+          <h3 class="font-headline text-xl font-bold text-on-surface">Save a Life</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed">Donate at the hospital and directly save up to 3 lives with a single donation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Emergency Callout -->
+  <section class="max-w-7xl mx-auto px-6 mb-32">
+    <div class="relative overflow-hidden rounded-[3rem] bg-zinc-900 p-12 md:p-20">
+      <div class="absolute inset-0 z-0 bg-gradient-to-br from-red-900/40 to-zinc-900"></div>
+      <div class="relative z-10 text-center space-y-8 max-w-2xl mx-auto">
+        <h2 class="text-white font-headline text-4xl md:text-5xl font-extrabold tracking-tight">Ready to make a difference?</h2>
+        <p class="text-zinc-400 text-lg leading-relaxed">Join our growing network of donors. Receive instant alerts when your blood type is needed near you.</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+          <a href="{{ url_for('register') }}" class="bg-primary hover:bg-primary-container text-white px-10 py-4 rounded-full font-headline font-bold transition-all active:scale-95">Create Donor Profile</a>
+          <a href="{{ url_for('login') }}" class="bg-white/10 backdrop-blur-md border border-white/20 text-white px-10 py-4 rounded-full font-headline font-bold hover:bg-white/20 transition-all active:scale-95">Login to Dashboard</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+{% endblock %}
